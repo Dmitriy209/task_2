@@ -1,6 +1,5 @@
 s=input()
 form=list(s)
-print(form)
 stack=[]
 skobki=input()
 close_skobki=[]
