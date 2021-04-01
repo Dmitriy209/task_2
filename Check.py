@@ -18,18 +18,40 @@ import re
 #    print('Таких скобок нет')
 
 s=input()
+form=list(s)
+print(form)
 stack=[]
 skobki=input()
-if skobki in '({[<':
-    good=True
+index=[]
+close_index=[]
+close_stack=[]
+a=0
+c=0
+b=len(form)
+d=len(form)
+
+if skobki in '([{<':
+    status=True
     for i in s:
         if i in '([{<':
             stack.append(i)
+            index.append(form.index(i,a,b))
+            a=form.index(i,a,b)+1
+            print(index)
+            print(stack)
         elif i in ')]}>':
+            close_stack.append(i)
+            close_index.append(form.index(i, c, d))
+            c = form.index(i, c, d) + 1
+            print(close_index)
+            print(close_stack)
             if not stack:
-                good=False
+                status=False
                 break
             open_bracket=stack.pop()
+            open_index = index.pop()
+            print(open_bracket)
+            print(open_index)
             if open_bracket in skobki and open_bracket=='(' and i==')':
                 continue
             if open_bracket in skobki and open_bracket=='[' and i==']':
@@ -38,11 +60,11 @@ if skobki in '({[<':
                 continue
             if open_bracket in skobki and open_bracket=='<' and i=='>':
                 continue
-            good=False
+            status=False
             break
-    if good and len(stack)==0:
-        print(good)
+    if status and len(stack)==0:
+        print(status)
     else:
-        print(good)
+        print(status, open_bracket, open_index)
 else:
     print('XER')
